@@ -13,20 +13,20 @@ spec:
         component: postgres
     spec:
       volumes:
-        - name: postgres-storage
+        - name: data #postgres-storage
           persistentVolumeClaim:
-            claimName: database-persistent-volume-claim
+            claimName: data #database-persistent-volume-claim
       containers:
         - name: postgres
           image: postgres:9.4.22
           ports:
             - containerPort: 5432
           volumeMounts:
-            - name: postgres-storage
+            - name: data #postgres-storage
               mountPath: /var/lib/postgresql/data
-              # subPath: postgres
+              subPath: data #postgres
           env:
-            - name: PGPASSWORD
+            - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: pgpassword
